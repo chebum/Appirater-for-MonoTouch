@@ -287,7 +287,7 @@ public class Appirater : NSObject
 
 	void HideRatingAlert ()
 	{
-		if (ratingAlert.Visible) {
+		if (ratingAlert != null && ratingAlert.Visible) {
 			if (settings.Debug)
 				Debug.WriteLine ("APPIRATER Hiding Alert");
 			ratingAlert.DismissWithClickedButtonIndex (-1, false);
