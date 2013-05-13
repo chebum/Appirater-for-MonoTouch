@@ -25,4 +25,4 @@ to this library be contributed back for the benefit of all who use Appirater.
 
 [homepage]: http://arashpayan.com/blog/index.php/2009/09/07/presenting-appirater/
 [xamarin]: https://github.com/xamarin/monotouch-samples/blob/master/ReachabilitySample/reachability.cs
-[ivann]: https://www.facebook.com/nikitinivan
+[ivann]: https://www.visualwatermark.com
