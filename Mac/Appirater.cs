@@ -406,20 +406,28 @@ public class Appirater : NSObject
 	[Export(SELECTOR_INCREMENT_AND_RATE)]
 	void IncrementAndRate (NSNumber _canPromptForRating)
 	{
-		using (new NSAutoreleasePool ()) {
-			IncrementUseCount ();
-			if (_canPromptForRating.BoolValue && RatingConditionsHaveBeenMet () && ConnectedToNetwork ())
-				InvokeOnMainThread (ShowRatingAlert);
+		try {
+			using (new NSAutoreleasePool ()) {
+				IncrementUseCount ();
+				if (_canPromptForRating.BoolValue && RatingConditionsHaveBeenMet () && ConnectedToNetwork ())
+					InvokeOnMainThread (ShowRatingAlert);
+			}
+		}
+		catch {
 		}
 	}
 
 	[Export(SELECTOR_INCREMENT_EVENT_AND_RATE)]
 	void IncrementSignificantEventAndRate (NSNumber _canPromptForRating)
 	{
+		try {
 		using (new NSAutoreleasePool ()) {
 			IncrementSignificantEventCount ();
 			if (_canPromptForRating.BoolValue && RatingConditionsHaveBeenMet () && ConnectedToNetwork ())
 				InvokeOnMainThread (ShowRatingAlert);
+		}
+		}
+		catch {
 		}
 	}
 
