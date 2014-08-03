@@ -115,8 +115,8 @@ public class AppiraterSettings
 
 public class Appirater : NSObject
 {
-	const string SELECTOR_INCREMENT_AND_RATE = "incrementAndRate";
-	const string SELECTOR_INCREMENT_EVENT_AND_RATE = "incrementSignificantEventAndRate";
+	const string SELECTOR_INCREMENT_AND_RATE = "incrementAndRate:";
+	const string SELECTOR_INCREMENT_EVENT_AND_RATE = "incrementSignificantEventAndRate:";
 	const string FIRST_USE_DATE = "kAppiraterFirstUseDate";
 	const string USE_COUNT = "kAppiraterUseCount";
 	const string SIGNIFICANT_EVENT_COUNT = "kAppiraterSignificantEventCount";
@@ -125,6 +125,7 @@ public class Appirater : NSObject
 	const string DECLINED_TO_RATE = "kAppiraterDeclinedToRate";
 	const string REMINDER_REQUEST_DATE = "kAppiraterReminderRequestDate";
 	const string TEMPLATE_REVIEW_URL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id={0}";
+	const string TEMPLATE_REVIEW_URL_IOS7 = @"itms-apps://itunes.apple.com/{0}/app/id{1}";
 	readonly AppiraterSettings settings;
 	UIAlertView	ratingAlert;
 
@@ -241,6 +242,11 @@ public class Appirater : NSObject
 		else {
 			NSUserDefaults userDefaults = NSUserDefaults.StandardUserDefaults;
 			string reviewURL = string.Format (TEMPLATE_REVIEW_URL, settings.AppId);
+			int systemMajorVersion = Convert.ToInt16 (UIDevice.CurrentDevice.SystemVersion.Split ('.') [0].ToString ());
+			if (systemMajorVersion >= 7)
+			{
+				reviewURL = string.Format (TEMPLATE_REVIEW_URL_IOS7, NSLocale.PreferredLanguages [0], settings.AppId);
+			}
 			userDefaults.SetBool (true, RATED_CURRENT_VERSION);
 			userDefaults.Synchronize ();
 			UIApplication.SharedApplication.OpenUrl (NSUrl.FromString (reviewURL));
